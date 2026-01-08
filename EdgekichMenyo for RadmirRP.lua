@@ -1,7 +1,7 @@
 -- Script head
-script_name('EdgekichMenyo for RadmirRP by edgekich') -- РЅР°Р·РІР°РЅРёРµ СЃРєСЂРёРїС‚Р°
-script_author('edgekich') -- Р°РІС‚РѕСЂ СЃРєСЂРёРїС‚Р°
-script_description('EdgekichMenyo for RadmirRP') -- РѕРїРёСЃР°РЅРёРµ СЃРєСЂРёРїС‚Р°
+script_name('EdgekichMenyo for RadmirRP by edgekich') -- название скрипта
+script_author('edgekich') -- автор скрипта
+script_description('EdgekichMenyo for RadmirRP') -- описание скрипта
 
 require "lib.moonloader"
 require "lib.sampfuncs"
@@ -29,12 +29,12 @@ yellow_color_text = "{FFFF00}"
 -- Peremenns
 local main_window_state = imgui.ImBool(false)
 
---РњРµРЅСЋС€РєРё
+--Менюшки
 	local main_menu_legit = true
 	local main_menu_rage = false
 	local main_menu_settings = false
 
-	--Р›РµРіРёС‚
+	--Легит
 		local fishing_window_state = imgui.ImBool(false)
 		local ohota_window_state = imgui.ImBool(false)
 		local halloween_window_state = imgui.ImBool(false)
@@ -48,7 +48,7 @@ local main_window_state = imgui.ImBool(false)
 		fishing_helper_buffer.v = tostring(0)
 		local fish_value = 0
 		local fishing_combo = imgui.ImInt(0)
-		local fishing_array = {u8"РЎРїРёРЅРЅРёРЅРі", u8"РџРѕРїР»Р°РІРѕС‡РЅР°СЏ СѓРґРѕС‡РєР°", u8"РЈР»СѓС‡С€РµРЅРЅР°СЏ СѓРґРѕС‡РєР°"}
+		local fishing_array = {u8"Спиннинг", u8"Поплавочная удочка", u8"Улучшенная удочка"}
 		local fishing_bot = imgui.ImBool(false)
 		local fishing_bot_key = imgui.ImBool(false)
 		local fishing_spamAlt_thread_stop = false
@@ -64,13 +64,13 @@ local main_window_state = imgui.ImBool(false)
 		local legit_whDiving_traser = imgui.ImBool(false)
         local legit_Obhod_AC = imgui.ImBool(false)
 
-		--РЈРіРѕРЅ РјР°С€РёРЅ, РіРј
+		--Угон машин, гм
 		local rage_ygonAvto = imgui.ImBool(false)
 		local fun_gm_window_state = imgui.ImBool(false)
 		local fun_gm = imgui.ImBool(false)
 		local fun_gm1 = imgui.ImBool(false)
 		
-		--РўРµР»РµРїРѕСЂС‚ Р°С‚Рї
+		--Телепорт атп
 		local fun_TpOnCoord_TPshim = false
 		local fun_TpOnCoord_syncPacketCount = 0
 		local fun_TpOnCoord_tpWait = 1100
@@ -79,7 +79,7 @@ local main_window_state = imgui.ImBool(false)
 		local LastObj = -1
 		local LastObjDistance = math.huge
 		
-	--Р‘РѕС‚С‹
+	--Боты
 		local ferma1TpPerenos = false
 		local ferma2TpPerenos = false
 		local fermaTpVspah = false
@@ -89,22 +89,22 @@ local main_window_state = imgui.ImBool(false)
 		local fermaCheckpointPosX = 0.0
 		local fermaCheckpointPosY = 0.0
 		local fermaCheckpointPosZ = 0.0
-	--РќР°СЃС‚СЂРѕР№РєРё
+	--Настройки
 		local settings_ActivationInsert = imgui.ImBool(false)
 		local settings_AutoY = imgui.ImBool(false)
 		local settings_AutoY_clicker = false
 		local settings_ObhodAC = imgui.ImBool(false)
 		
-	--РҐРµР»Р»РѕСѓРёРЅ
+	--Хеллоуин
 		local legit_halloween_sendListovka = imgui.ImBool(false)
 
---СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°
+--размер шрифта
 	local headsize = nil
 	local menu_buttonText_size = nil
 	local menu_HeadFuncText_size = nil
 	local menu_buttonCheatText_size = nil
 
--- РђРІС‚Рѕ-Р»РѕРіРёРЅ
+-- Авто-логин
 local autologin_window_state = imgui.ImBool(false)
 local autologin_buffer = imgui.ImBuffer(256)
 local config = inicfg.load({
@@ -145,12 +145,12 @@ function main()
 	if not isSampLoaded() or not isSampfuncsLoaded then return end
 	while not isSampAvailable() do wait(100) end
 
-	-- РћР±РЅРѕРІР»РµРЅРёРµ СЃРєСЂРёРїС‚Р°
+	-- Обновление скрипта
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			updateIni = inicfg.load(nil, update_path)
 			if tonumber(updateIni.info.vers) > script_vers then
-				sampAddChatMessage("Р’С‹С€Р»Р° РѕР±РЅРѕРІР° {000000}EdgekichMenyo {FFFFFF}RadmirRP {FFFFFF}by Edgekich! {FFFFFF}РќР°С‡РёРЅР°СЋ Р·Р°РіСЂСѓР·РєСѓ...", -1)
+				sampAddChatMessage("Вышла обнова {000000}EdgekichMenyo {FFFFFF}RadmirRP {FFFFFF}by Edgekich! {FFFFFF}Начинаю загрузку...", -1)
 				update_state = true
 			end
 			os.remove(update_path)
@@ -159,16 +159,16 @@ function main()
 
 	if not update_state then
 		if settings_ActivationInsert.v then
-			sampAddChatMessage("{000000}EdgekichMenyo {FFFFFF}for RadmirRP {FFFFFF}by Edgekich. {ffffff}Р—Р°РіСЂСѓР¶РµРЅ!", -1)
-			sampAddChatMessage("РђРєС‚РёРІР°С†РёСЏ ---> {eefa05}/em{ffffff}, {eefa05}INSERT", -1)
+			sampAddChatMessage("{000000}EdgekichMenyo {FFFFFF}for RadmirRP {FFFFFF}by Edgekich. {ffffff}Загружен!", -1)
+			sampAddChatMessage("Активация ---> {eefa05}/em{ffffff}, {eefa05}INSERT", -1)
 		else
-			sampAddChatMessage("{000000}EdgekichMenyo {FFFFFF}for RadmirRP {FFFFFF}by Edgekich. {ffffff}Р—Р°РіСЂСѓР¶РµРЅ!", -1)
-			sampAddChatMessage("РђРєС‚РёРІР°С†РёСЏ ---> {eefa05}/em{ffffff}", -1)
+			sampAddChatMessage("{000000}EdgekichMenyo {FFFFFF}for RadmirRP {FFFFFF}by Edgekich. {ffffff}Загружен!", -1)
+			sampAddChatMessage("Активация ---> {eefa05}/em{ffffff}", -1)
 		end
 	end
 	
-	--РџРѕС‚РѕРєРё
-		--thread = lua_thread.create_suspended(thread_func) | thread:run() - РІС‹РїРѕР»РЅРёС‚СЊ
+	--Потоки
+		--thread = lua_thread.create_suspended(thread_func) | thread:run() - выполнить
 	fishing_spamAlt_thread = lua_thread.create_suspended(fishing_spamAlt_thread_function)
 	legit_autoTakeDuck_thread = lua_thread.create_suspended(legit_autoTakeDuck_thread_function)
 	ferma1TpPerenos_thread = lua_thread.create_suspended(ferma1TpPerenos_thread_function)
@@ -177,16 +177,16 @@ function main()
 	fermaYdobrenie_thread = lua_thread.create_suspended(fermaYdobrenie_thread_function)
 	fermaSbor_thread = lua_thread.create_suspended(fermaSbor_thread_function)
 	
-	-- РљРѕРјР°РЅРґС‹
+	-- Команды
 	sampRegisterChatCommand("em", imgui_main_window_state)
 	sampRegisterChatCommand("rtp", function()
 		local x, y, z
-		--РС‰РµРј РєРѕСЂРґС‹ РІ РїР°РјСЏС‚Рё
+		--Ищем корды в памяти
 		modulehandle = getModuleHandle("clientside.dll")
 		fulladr = mem.getint32(modulehandle + 0x431110)
-		ptr = '0x'.. string.format("%x", fulladr) --РїРѕР»СѓС‡РёР»Рё РєСѓРґР° СѓРєР°Р·С‹РІР°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ
+		ptr = '0x'.. string.format("%x", fulladr) --получили куда указывает указатель
 
-		x = mem.getfloat(ptr + 0x10) --РґРѕР±Р°РІРёР»Рё Рє РЅР°Р№РґРµРЅРЅРѕР№ РїР°РјСЏС‚Рё СѓРєР°Р·Р°С‚РµР»СЏ РѕС„С„СЃРµС‚
+		x = mem.getfloat(ptr + 0x10) --добавили к найденной памяти указателя оффсет
 		y = mem.getfloat(ptr + 0x14)
 		z = 1000.0
 		z = getGroundZFor3dCoord(x,y,z)
@@ -211,7 +211,7 @@ function main()
 		local xStr, yStr, zStr = string.match(arg, "(.+) (.+) (.+)")
 		local x, y, z
 		if xStr == nil or xStr == "" then
-			sampAddChatMessage("{c300ff}ATP/MTP by L.team: {ffffff}Р’РІРµРґРµРЅС‹ РЅРµ РІСЃРµ РєРѕСЂРґС‹, РЅР°РґРѕ: x y z", -1)
+			sampAddChatMessage("{c300ff}ATP/MTP by L.team: {ffffff}Введены не все корды, надо: x y z", -1)
 		else
 			x = tonumber(xStr); y = tonumber(yStr); z = tonumber(zStr);
 			fun_TpOnCoord_syncPacketCount=0
@@ -224,34 +224,34 @@ function main()
 	sampRegisterChatCommand("ferma_per1", function(arg)
 		ferma1TpPerenos = not ferma1TpPerenos
 		if ferma1TpPerenos then
-			sampAddChatMessage("РќР°С‡РёРЅР°РµРј С‚РµРїР°С‚СЊСЃСЏ", -1)
+			sampAddChatMessage("Начинаем тепаться", -1)
 			ferma1TpPerenos_thread:run()
 		else
-			sampAddChatMessage("Р”РѕС‚РµРїС‹РІР°РµРјСЃСЏ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·", -1)
+			sampAddChatMessage("Дотепываемся последний раз", -1)
 		end
 	end)
 	sampRegisterChatCommand("ferma_per2", function(arg)
 		ferma2TpPerenos = not ferma2TpPerenos
 		if ferma2TpPerenos then
-			sampAddChatMessage("РќР°С‡РёРЅР°РµРј С‚РµРїР°С‚СЊСЃСЏ", -1)
+			sampAddChatMessage("Начинаем тепаться", -1)
 			ferma2TpPerenos_thread:run()
 		else
-			sampAddChatMessage("Р”РѕС‚РµРїС‹РІР°РµРјСЃСЏ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·", -1)
+			sampAddChatMessage("Дотепываемся последний раз", -1)
 		end
 	end)
 	sampRegisterChatCommand("ferma_vspah", function(arg)
 		fermaTpVspah = not fermaTpVspah
 		if fermaTpVspah then
-			sampAddChatMessage("РќР°С‡РёРЅР°РµРј С‚РµРїР°С‚СЊСЃСЏ", -1)
+			sampAddChatMessage("Начинаем тепаться", -1)
 			fermaTpVspah_thread:run()
 		else
-			sampAddChatMessage("Р”РѕС‚РµРїС‹РІР°РµРјСЃСЏ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·", -1)
+			sampAddChatMessage("Дотепываемся последний раз", -1)
 		end
 	end)
 	sampRegisterChatCommand("ferma_grabmetka", function()
 		local x, y, z = getCharCoordinates(PLAYER_PED)
 		local data = samp_create_sync_data("player")
-		data.position = {fermaCheckpointPosX, fermaCheckpointPosY, fermaCheckpointPosZ} -- С‚Рї РЅР° РјРµР»СЊРЅРёС†Сѓ
+		data.position = {fermaCheckpointPosX, fermaCheckpointPosY, fermaCheckpointPosZ} -- тп на мельницу
 		data.surfingVehicleId = LastObj
 		data.send()
 		data.position = {x, y, z}
@@ -261,23 +261,23 @@ function main()
 	sampRegisterChatCommand("ferma_ydobrenie", function()
 		fermaYdobrenie = not fermaYdobrenie
 		if fermaYdobrenie then
-			sampAddChatMessage("РќР°С‡РёРЅР°РµРј СѓРґРѕР±СЂСЏС‚СЊ Р±РµСЃРїР°Р»РµРІРЅРѕ", -1)
+			sampAddChatMessage("Начинаем удобрять беспалевно", -1)
 			fermaYdobrenie_thread:run()
 		else
-			sampAddChatMessage("РЈРґРѕР±СЂСЏРµРј РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·", -1)
+			sampAddChatMessage("Удобряем последний раз", -1)
 		end
 	end)
 	sampRegisterChatCommand("ferma_sbor", function(arg)
 		fermaSbor = not fermaSbor
 		if fermaSbor then
-			sampAddChatMessage("РќР°С‡РёРЅР°РµРј С‚РµРїР°С‚СЊСЃСЏ", -1)
+			sampAddChatMessage("Начинаем тепаться", -1)
 			fermaSbor_thread:run()
 		else
-			sampAddChatMessage("Р”РѕС‚РµРїС‹РІР°РµРјСЃСЏ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р·", -1)
+			sampAddChatMessage("Дотепываемся последний раз", -1)
 		end
 	end)
 	
-	--Р¤РѕРЅС‚С‹
+	--Фонты
 	font = renderCreateFont('Verdana', 10, 9)
 	font1 = renderCreateFont('Verdana', 6, 4)
 	fish_font = renderCreateFont('Arial', 15, 13)
@@ -288,11 +288,11 @@ function main()
 	imgui.Process = false
     while true do
         wait(0)
-		-- РћР±РЅРѕРІР»РµРЅРёРµ СЃРєСЂРёРїС‚Р°
+		-- Обновление скрипта
 		if update_state then
 			downloadUrlToFile(script_url, script_path, function(id, status)
 				if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-					sampAddChatMessage("{00ff00}EdgekichMenyo {00b7ff}for RadmirRP {f5a207}by Edgekich {0bff00}СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅ :P", -1)
+					sampAddChatMessage("{00ff00}EdgekichMenyo {00b7ff}for RadmirRP {f5a207}by Edgekich {0bff00}успешно обновлен :P", -1)
 				end
 			end)
 			break
@@ -302,13 +302,13 @@ function main()
 			if isKeyJustPressed(VK_B) then
 				if (fishing_bot.v) then
 					fishing_bot.v = false
-					sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РҐРІР°С‚РёС‚ РЅР° СЃРµРіРѕРґРЅСЏ СЂС‹Р±С‹', main_color)
+					sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Хватит на сегодня рыбы', main_color)
 					if not fishing_spamAlt_thread.dead then
 						fishing_spamAlt_thread_stop = true
 					end
 				else
 					fishing_bot.v = true
-					sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РќР°С‡РёРЅР°СЋ СЂР°Р±РѕС‚Р°С‚СЊ :P', main_color)
+					sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Начинаю работать :P', main_color)
 					lua_thread.create(function()
 						wait(500)
 						fishing_spamAlt_thread:run()
@@ -317,23 +317,23 @@ function main()
 			end
 		end
 
-		-- Р›РµРіРёС‚
-			-- РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё
+		-- Легит
+			-- Помощник для рыбалки
 			if fishing_helper.v then
 				local resX, resY = getScreenResolution()
 				if (fish_value < 70) then
-					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBF09ff00, 3, 0x00FF8A00) -- Р·РµР»РµРЅС‹Р№
-					renderFontDrawText(fish_font, string.format('РР·РЅРѕСЃ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
+					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBF09ff00, 3, 0x00FF8A00) -- зеленый
+					renderFontDrawText(fish_font, string.format('Износ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
 				elseif (fish_value >= 70  and fish_value < 80) then
-					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFffd600, 3, 0x00FF8A00) -- Р¶РµР»С‚С‹Р№
-					renderFontDrawText(fish_font, string.format('РР·РЅРѕСЃ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
+					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFffd600, 3, 0x00FF8A00) -- желтый
+					renderFontDrawText(fish_font, string.format('Износ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
 				elseif (fish_value >= 80 and fish_value < 97) then
-					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFff8e00, 3, 0x00FF8A00) -- РѕСЂР°РЅР¶РµРІС‹Р№
-					renderFontDrawText(fish_font, string.format('РР·РЅРѕСЃ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
+					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFff8e00, 3, 0x00FF8A00) -- оранжевый
+					renderFontDrawText(fish_font, string.format('Износ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
 				else
-					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFff0000, 3, 0x00FF8A00) -- РєСЂР°СЃРЅС‹Р№
-					renderFontDrawText(fish_font, string.format('РР·РЅРѕСЃ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
-					renderFontDrawText(fish_font_warn, string.format('РћСЃС‚РѕСЂРѕР¶РЅРѕ!'), resX/2-130, resY/2-150, 0xFFFFFFFF)
+					renderDrawBoxWithBorder(resX/2-175, resY/2-5, 140, 40, 0xBFff0000, 3, 0x00FF8A00) -- красный
+					renderFontDrawText(fish_font, string.format('Износ: ' .. fish_value), resX/2-170, resY/2, 0xFFFFFFFF)
+					renderFontDrawText(fish_font_warn, string.format('Осторожно!'), resX/2-130, resY/2-150, 0xFFFFFFFF)
 				end
 			end
 
@@ -345,13 +345,13 @@ function main()
 
 			if fish_value >= 98 and fishing_bot.v then
 				fishing_bot.v = false
-				sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РЎР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№ РёР·РЅРѕСЃ', main_color)
+				sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Слишком большой износ', main_color)
 				if not fishing_spamAlt_thread.dead then
 					fishing_spamAlt_thread_stop = true
 				end
 			end
 			
-			-- Р’С… РЅР° РѕС…РѕС‚Сѓ
+			-- Вх на охоту
 			if legit_whohota.v then
 				for pairsId, value in pairs(getAllChars()) do
 					if value ~= PLAYER_PED and doesCharExist(value) then
@@ -363,21 +363,21 @@ function main()
 							local X,Y = convert3DCoordsToScreen(x, y, z)
 							local _X,_Y = convert3DCoordsToScreen(posX, posY, posZ)
 							if modelid == 15555 then
-								renderFontDrawText(font_whohota,'РћР»РµРЅСЊ',_X,_Y, 0xFF00FF00)
+								renderFontDrawText(font_whohota,'Олень',_X,_Y, 0xFF00FF00)
 							elseif modelid == 15556 then
-								renderFontDrawText(font_whohota,'РњРµРґРІРµРґСЊ',_X,_Y, 0xFF00FF00)
+								renderFontDrawText(font_whohota,'Медведь',_X,_Y, 0xFF00FF00)
 							end
 						end
 					end
 				end
 			end
-			-- Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°
+			-- Бот рыбалка
 			if fishing_bot.v then
 				local resX, resY = getScreenResolution()
-				renderFontDrawText(fish_font_2, "Р¤Р°СЂРјРёРј", resX/2-170, resY/2+30, 0xFFFFFFFF)
+				renderFontDrawText(fish_font_2, "Фармим", resX/2-170, resY/2+30, 0xFFFFFFFF)
 			end
 
-			--Р’С… РЅР° СѓС‚РѕРє
+			--Вх на уток
 			if legit_whDuck.v then
 				for _, v in pairs(getAllObjects()) do
 					if sampGetObjectSampIdByHandle(v) ~= -1 then
@@ -393,12 +393,12 @@ function main()
 						local QuaternionX, QuaternionY, QuaternionZ, QuaternionW = getObjectQuaternion(v)
 						if model == 10809 then
 							if (QuaternionX == 0) then
-								renderFontDrawText(font_whohota, "РЈС‚РєР°".." "..distance, x1, y1, 0xFF00FF00)
+								renderFontDrawText(font_whohota, "Утка".." "..distance, x1, y1, 0xFF00FF00)
 								if legit_whDuck_traser.v then
 									renderDrawLine(x10, y10, x1, y1, 1.0, 0xFF00FF00)
 								end
 							elseif not(QuaternionX == 0) then
-								renderFontDrawText(font_whohota, "РњРµСЂС‚РІР°СЏ СѓС‚РєР°", x1, y1, 0xFF00FF00)
+								renderFontDrawText(font_whohota, "Мертвая утка", x1, y1, 0xFF00FF00)
 								if legit_whDuck_traser.v then
 									renderDrawLine(x10, y10, x1, y1, 1.0, 0xFF00FF00)
 								end
@@ -407,7 +407,7 @@ function main()
 					end
 				end
 			end
-			--Р•СЃР»Рё РІРєР»СЋС‡РµРЅ Р°РІС‚РѕРїРѕРґР±РѕСЂ
+			--Если включен автоподбор
 			if legit_AutoTakeDuck.v then
 				for _, v in pairs(getAllObjects()) do
 					if sampGetObjectSampIdByHandle(v) ~= -1 then
@@ -433,7 +433,7 @@ function main()
 
 			end
 
-			--РђРёРј РЅР° СѓС‚РѕРє
+			--Аим на уток
 			local camMode = readMemory(0xB6F1A8, 1, false)
 			if camMode == 53 or camMode == 55 or camMode == 7 or camMode == 8 then
 				local width, heigth = getScreenResolution()
@@ -460,7 +460,7 @@ function main()
 				renderFontDrawText(font, "Teleporting", sw/2-15, sh/2+50, 0xFFFFFFFF)
 			end
 			
-			--Р’С… РЅР° РґР°Р№РІРёРЅРі
+			--Вх на дайвинг
 			if legit_whDiving.v then
 				for _, v in pairs(getAllObjects()) do
 					if sampGetObjectSampIdByHandle(v) ~= -1 then
@@ -474,7 +474,7 @@ function main()
 						local x10, y10 = convert3DCoordsToScreen(x2,y2,z2)
 						local distance = string.format("%.1f", getDistanceBetweenCoords3d(x, y, z, x2, y2, z2))
 						if model == 16500 then
-							renderFontDrawText(font_whohota, "РЎСѓРЅРґСѓРє".." "..distance, x1, y1, 0xFF00FF00)
+							renderFontDrawText(font_whohota, "Сундук".." "..distance, x1, y1, 0xFF00FF00)
 							if legit_whDiving_traser.v then
 								renderDrawLine(x10, y10, x1, y1, 1.0, 0xFF00FF00)
 							end
@@ -484,7 +484,7 @@ function main()
 			end
 			
 			
-			--РҐРµР»Р»РѕСѓРёРЅ
+			--Хеллоуин
 			if legit_halloween_sendListovka.v then
 				if isKeyDown(keys.VK_RBUTTON) and wasKeyPressed(keys.VK_B) then
 					local bs = raknetNewBitStream()
@@ -492,37 +492,37 @@ function main()
 					for i=1, #MyPacket do
 						raknetBitStreamWriteInt8(bs, MyPacket[i])
 					end
-					raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-					raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+					raknetSendBitStream(bs) -- отправляем пакет
+					raknetDeleteBitStream(bs) -- удаляем пакет
 					
 					bs = raknetNewBitStream()
 					MyPacket = {215, 2, 0, 0, 0, 0, 0, 25, 0, 0, 0, 77, 101, 110, 117, 73, 110, 116, 95, 79, 110, 80, 108, 97, 121, 101, 114, 67, 108, 105, 99, 107, 73, 116, 101, 109, 4, 0, 0, 0, 100, 1, 0, 0, 0, 100, 1, 0, 0, 0}
 					for i=1, #MyPacket do
 						raknetBitStreamWriteInt8(bs, MyPacket[i])
 					end
-					raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-					raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+					raknetSendBitStream(bs) -- отправляем пакет
+					raknetDeleteBitStream(bs) -- удаляем пакет
 					
 					bs = raknetNewBitStream()
 					MyPacket = {215, 2, 0, 0, 0, 0, 0, 25, 0, 0, 0, 77, 101, 110, 117, 73, 110, 116, 95, 79, 110, 80, 108, 97, 121, 101, 114, 67, 108, 105, 99, 107, 73, 116, 101, 109, 4, 0, 0, 0, 100, 58, 0, 0, 0, 100, 0, 0, 0, 0}
 					for i=1, #MyPacket do
 						raknetBitStreamWriteInt8(bs, MyPacket[i])
 					end
-					raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-					raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+					raknetSendBitStream(bs) -- отправляем пакет
+					raknetDeleteBitStream(bs) -- удаляем пакет
 					
 					bs = raknetNewBitStream()
 					MyPacket = {215, 2, 0, 0, 0, 0, 0, 24, 0, 0, 0, 77, 101, 110, 117, 73, 110, 116, 95, 79, 110, 67, 108, 111, 115, 101, 73, 110, 116, 101, 114, 102, 97, 99, 101, 2, 0, 0, 0, 100, 0, 0, 0, 0}
 					for i=1, #MyPacket do
 						raknetBitStreamWriteInt8(bs, MyPacket[i])
 					end
-					raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-					raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+					raknetSendBitStream(bs) -- отправляем пакет
+					raknetDeleteBitStream(bs) -- удаляем пакет
 				end
 			end
 			
 			
-		--РђРєС‚РёРІР°С†РёСЏ РЅР° INSERT
+		--Активация на INSERT
 		if settings_ActivationInsert.v and isKeyJustPressed(VK_INSERT) then
 			imgui_main_window_state()
 		end
@@ -538,27 +538,27 @@ function imgui_main_window_state(arg)
 	main_window_state.v = not main_window_state.v
 	imgui.Process = main_window_state.v
 end
--- РћСЃРЅРѕРІРЅР°СЏ РѕС‚СЂРёСЃРѕРІРєР° РРјР“СѓРё
+-- Основная отрисовка ИмГуи
 function imgui.OnDrawFrame()
 	imgui.SwitchContext()
     local style = imgui.GetStyle()
     local colors = style.Colors
     local clr = imgui.Col
     local ImVec4 = imgui.ImVec4
-	-- Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ
+	-- Главное окно
     if main_window_state.v then
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(650, 450), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		colors[clr.WindowBg] = ImVec4(RGBA(0, 0, 0, 0.20))
 		--colors[clr.WindowBg] = ImVec4(RGBA(0, 0, 0, 0.95))
 		local mainColorChild = ImVec4(RGBA(0, 0, 0, 1))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP', main_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoTitleBar)
 		apply_custom_style()
 
-		--Р“РѕР»РѕРІР° РѕРєРЅР°
+		--Голова окна
 		colors[clr.Border] = ImVec4(RGBA(255, 255, 255, 0))
 		createChild("", 645, 445, 2, 2, ImVec4(RGBA(255, 255, 255, 0.30)))
 			createChild("", 635, 435, 5, 5, ImVec4(RGBA(255, 255, 255, 0.6)))
@@ -584,23 +584,23 @@ function imgui.OnDrawFrame()
 							imgui.SameLine()
 							imgui.Text("v" .. script_vers_text, main_color)
 
-						imgui.Separator() -- Р›РёРЅРёСЏ
+						imgui.Separator() -- Линия
 
-						-- РљРЅРѕРїРєРё РјРµРЅСЋС€РµРє
+						-- Кнопки менюшек
 						imgui.SetCursorPosY(65)
 						colors[clr.Button]        = ImVec4(RGBA(201, 201, 201, 0.7))
 						colors[clr.ButtonHovered] = ImVec4(RGBA(201, 201, 201, 0.5))
 						colors[clr.ButtonActive]  = ImVec4(RGBA(201, 201, 201, 0.2))
 						imgui.PushFont(menu_buttonText_size)
-						if imgui.Button(u8"Р›РµРіРёС‚", imgui.ImVec2(120, 50)) then
+						if imgui.Button(u8"Легит", imgui.ImVec2(120, 50)) then
 							main_menu_exitAll()
 							main_menu_legit = true
 						end
-						if imgui.Button(u8"Р СЌР№РґР¶", imgui.ImVec2(120, 50)) then
+						if imgui.Button(u8"Рэйдж", imgui.ImVec2(120, 50)) then
 							main_menu_exitAll()
 							main_menu_rage = true
 						end
-						if imgui.Button(u8"РќР°СЃС‚СЂРѕР№РєРё", imgui.ImVec2(120, 50)) then
+						if imgui.Button(u8"Настройки", imgui.ImVec2(120, 50)) then
 							main_menu_exitAll()
 							main_menu_settings = true
 						end
@@ -611,71 +611,71 @@ function imgui.OnDrawFrame()
 						colors[clr.ButtonHovered] = ImVec4(RGBA(255, 255, 255, 0.5))
 						colors[clr.ButtonActive]  = ImVec4(RGBA(255, 255, 255, 0.2))
 
-						--РњРµРЅСЋС€РєРё
-						if main_menu_legit then -- Р›РµРіРёС‚
+						--Менюшки
+						if main_menu_legit then -- Легит
 							createChild("1", 470, 350, 140, 65, mainColorChild)
 							imgui.SetCursorPosX(25)
 							imgui.SetCursorPosY(15)
 							imgui.PushFont(menu_buttonCheatText_size)
-							if imgui.Button(u8"Р С‹Р±Р°Р»РєР°", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Рыбалка", imgui.ImVec2(202, 50)) then
 								fishing_window_state.v = true
 							end
 							imgui.SameLine()
-							if imgui.Button(u8"РћС…РѕС‚Р°", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Охота", imgui.ImVec2(202, 50)) then
 								ohota_window_state.v = true
 							end
 							imgui.SetCursorPosX(25)
-							if imgui.Button(u8"Р”Р°Р№РІРёРЅРі", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Дайвинг", imgui.ImVec2(202, 50)) then
 								diving_window_state.v = true
 							end
 							imgui.SameLine()
-							if imgui.Button(u8"РџРёР»РѕС‚", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Пилот", imgui.ImVec2(202, 50)) then
 								pilot_window_state.v = true
 							end
 							imgui.SetCursorPosX(25)
-							if imgui.Button(u8"РњР°С€РёРЅРёСЃС‚", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Машинист", imgui.ImVec2(202, 50)) then
 								halloween_window_state.v = true
 							end
 							imgui.SameLine()
-							if imgui.Button(u8"РћР±С…РѕРґ", imgui.ImVec2(202, 50)) then
+							if imgui.Button(u8"Обход", imgui.ImVec2(202, 50)) then
 								obhod_radmir_state.v = true
 							end
 							imgui.PopFont()
 							
-							--РђРІС‚Рѕ-Р»РѕРіРёРЅ
+							--Авто-логин
 							imgui.SetCursorPosX(25)
-							if imgui.Button(u8"РђРІС‚Рѕ-Р»РѕРіРёРЅ", imgui.ImVec2(100, 50)) then
+							if imgui.Button(u8"Авто-логин", imgui.ImVec2(100, 50)) then
 								autologin_window_state.v = true
 							end
 							
 							imgui.EndChild()
 						end
 						
-						if main_menu_rage then -- Р СЌР№РґР¶
+						if main_menu_rage then -- Рэйдж
 							createChild("1", 470, 350, 140, 65, mainColorChild)
 							imgui.SetCursorPosX(25)
 							imgui.SetCursorPosY(15)
-							--РЈРіРѕРЅ Р°РІС‚Рѕ
-								if imgui.Checkbox(u8'РЈРіРѕРЅ Р°РІС‚Рѕ', rage_ygonAvto) then end
+							--Угон авто
+								if imgui.Checkbox(u8'Угон авто', rage_ygonAvto) then end
 							
-							--Р“Рј
+							--Гм
 								imgui.SetCursorPosX(25)
-								if imgui.Button(u8"Р“Рј", imgui.ImVec2(80, 20)) then
+								if imgui.Button(u8"Гм", imgui.ImVec2(80, 20)) then
 									fun_gm_window_state.v = true
 								end
 								
-								imgui.Text(u8"Р¤РµСЂРјР°: /ferma_per1(Р±СѓСЃР°РµРІРѕ) /ferma_per2(Р±Р°С‚С‹СЂРµРІРѕ) /ferma_vspah(С‚СЂР°РєС‚РѕСЂ)")
-								imgui.Text(u8"      /ferma_grabmetka(РІРѕСЂСѓРµС‚ РјРµС‚РєСѓ)\n      /ferma_ydobrenie(СѓРґРѕР±СЂРµРЅРёРµ)\n      /ferma_sbor(СЃР±РѕСЂ)")
-							-- РџРѕС‡РёРЅРєР° Р°РІС‚Рѕ
+								imgui.Text(u8"Ферма: /ferma_per1(бусаево) /ferma_per2(батырево) /ferma_vspah(трактор)")
+								imgui.Text(u8"      /ferma_grabmetka(ворует метку)\n      /ferma_ydobrenie(удобрение)\n      /ferma_sbor(сбор)")
+							-- Починка авто
 								imgui.SameLine()
 								imgui.SetCursorPosX(312)
 								imgui.SetCursorPosY(15)
-								if imgui.Button(u8"РџРѕС‡РёРЅРёС‚СЊ РјР°С€РёРЅСѓ", imgui.ImVec2(120, 50)) then
+								if imgui.Button(u8"Починить машину", imgui.ImVec2(120, 50)) then
 									if isCharInAnyCar(playerPed) then
 										setCarHealth(storeCarCharIsInNoSave(playerPed), 1000.0)
-										sampAddChatMessage(yellow_color_text .. 'РџРѕС‡РёРЅРёС‚СЊ РјР°С€РёРЅСѓ: {0dffdb}РўРµРїРµСЂСЊ С…Рї РјР°С€РёРЅС‹ - 1000', main_color)
+										sampAddChatMessage(yellow_color_text .. 'Починить машину: {0dffdb}Теперь хп машины - 1000', main_color)
 									else
-										sampAddChatMessage(yellow_color_text .. 'РџРѕС‡РёРЅРёС‚СЊ РјР°С€РёРЅСѓ: {0dffdb}Р‘РѕР¶Рµ, СЃСЏРґСЊ РІ РјР°С€РёРЅСѓ...', main_color)
+										sampAddChatMessage(yellow_color_text .. 'Починить машину: {0dffdb}Боже, сядь в машину...', main_color)
 									end
 								end
 								
@@ -683,22 +683,22 @@ function imgui.OnDrawFrame()
 							imgui.EndChild()
 						end
 						
-						if main_menu_settings then -- РќР°СЃС‚СЂРѕР№РєРё
+						if main_menu_settings then -- Настройки
 							createChild("1", 470, 350, 140, 65, mainColorChild)
 							imgui.SetCursorPosX(25)
 							imgui.SetCursorPosY(15)
-								if imgui.Checkbox(u8'РђРєС‚РёРІР°С†РёСЏ РјРµРЅСЋ РЅР° INSERT', settings_ActivationInsert) then 
+								if imgui.Checkbox(u8'Активация меню на INSERT', settings_ActivationInsert) then 
 									config.Settings.ActivationInsert = settings_ActivationInsert.v
 									inicfg.save(config)
 								end
 								
 							imgui.SetCursorPosX(25)	
-								if imgui.Checkbox(u8'РђРІС‚Рѕ Y', settings_AutoY) then 
+								if imgui.Checkbox(u8'Авто Y', settings_AutoY) then 
 									config.Settings.AutoY = settings_AutoY.v
 									inicfg.save(config)
 								end
 							imgui.SetCursorPosX(25)
-								if imgui.Checkbox(u8'РћР±С…РѕРґ РђРЅС‚РёС‡РёС‚Р° (Detected)', settings_ObhodAC) then 
+								if imgui.Checkbox(u8'Обход Античита (Detected)', settings_ObhodAC) then 
 									config.Settings.Obhod_AC = settings_ObhodAC.v
 									inicfg.save(config)
 								end
@@ -712,16 +712,16 @@ function imgui.OnDrawFrame()
 		imgui.EndChild()
         imgui.End()
     end
-	-- РћРєРЅРѕ РґР»СЏ РіРј
+	-- Окно для гм
 	if fun_gm_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(350, 250), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - GM', fun_gm_window_state, imgui.WindowFlags.NoResize)
-		if imgui.Checkbox(u8'Р’РєР»СЋС‡РёС‚СЊ Р“Рњ', fun_gm) then
+		if imgui.Checkbox(u8'Включить ГМ', fun_gm) then
 			if fun_gm.v then
 				function sampev.onSendSpawn()
 					return false
@@ -745,7 +745,7 @@ function imgui.OnDrawFrame()
 			end
         end
 
-		if imgui.Checkbox(u8"Р—Р°СЃРїР°РІРЅРёС‚СЊСЃСЏ РІ Р±РѕР»СЊРєРµ", fun_gm1) then
+		if imgui.Checkbox(u8"Заспавниться в больке", fun_gm1) then
 			if fun_gm1.v == true then
 				function sampev.onSendSpawn()
 					return false
@@ -756,28 +756,28 @@ function imgui.OnDrawFrame()
 				end
 			end
 		end
-		if imgui.Button(u8"РЈРјРµСЂРµС‚СЊ", imgui.ImVec2(70, 30)) then
+		if imgui.Button(u8"Умереть", imgui.ImVec2(70, 30)) then
 			setCharHealth(PLAYER_PED, 0)
 		end
         imgui.End()
 	end
-	-- РћРєРЅРѕ РґР»СЏ СЂС‹Р±Р°Р»РєРё
+	-- Окно для рыбалки
 	if fishing_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(500, 350), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Fishing', fishing_window_state, imgui.WindowFlags.NoResize)
 
-		--РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё
+		--Помощник для рыбалки
 		imgui.SetCursorPosX(155)
 		imgui.PushFont(menu_HeadFuncText_size)
-		imgui.Text(u8'РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё')
+		imgui.Text(u8'Помощник для рыбалки')
 		imgui.PopFont()
 		imgui.SetCursorPosY(50)
-		imgui.Text(u8'РЎРєРѕР»СЊРєРѕ РёР·РЅРѕСЃР°?:')
+		imgui.Text(u8'Сколько износа?:')
 		imgui.SameLine()
 		imgui.PushItemWidth(40)
 		if imgui.InputText(u8'', fishing_helper_buffer) then end
@@ -786,67 +786,67 @@ function imgui.OnDrawFrame()
 		imgui.SetCursorPosX(165)
 		imgui.Combo(" ", fishing_combo, fishing_array, #fishing_array)
 		imgui.SameLine()
-		if imgui.Checkbox(u8 'Р’РєР»', fishing_helper) then
+		if imgui.Checkbox(u8 'Вкл', fishing_helper) then
 			if fishing_helper.v then
 				if (tonumber(fishing_helper_buffer.v) == nil) then
-					sampAddChatMessage(yellow_color_text .. 'РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё: {0dffdb}Р­СЌСЌСЌСЌ, РІРІРµРґРё РЅРѕСЂРј С‡РёСЃР»Рѕ! :P', main_color)
+					sampAddChatMessage(yellow_color_text .. 'Помощник для рыбалки: {0dffdb}Эээээ, введи норм число! :P', main_color)
 				elseif (tonumber(fishing_helper_buffer.v) >= 0) and (tonumber(fishing_helper_buffer.v) <= 100) then
 					fish_value = tonumber(fishing_helper_buffer.v)
-					sampAddChatMessage(yellow_color_text .. 'РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё: Р—Р°РїРѕРјРЅРёР», Сѓ РІР°СЃ - {0dffdb}' .. tostring(fish_value) .. yellow_color_text .. ' :P', main_color)
+					sampAddChatMessage(yellow_color_text .. 'Помощник для рыбалки: Запомнил, у вас - {0dffdb}' .. tostring(fish_value) .. yellow_color_text .. ' :P', main_color)
 				else
-					sampAddChatMessage(yellow_color_text .. 'РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё: {0dffdb}Р­СЌСЌСЌСЌ, РІРІРµРґРё РЅРѕСЂРј С‡РёСЃР»Рѕ! :P', main_color)
+					sampAddChatMessage(yellow_color_text .. 'Помощник для рыбалки: {0dffdb}Эээээ, введи норм число! :P', main_color)
 				end
 			end
 			if not fishing_helper.v then end
 		end
-		--Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°
-		if imgui.Checkbox(u8 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°', fishing_bot) then
+		--Бот рыбалка
+		if imgui.Checkbox(u8 'Бот рыбалка', fishing_bot) then
 			if fishing_bot.v then
-				sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РќР°С‡РёРЅР°СЋ СЂР°Р±РѕС‚Р°С‚СЊ :P', main_color)
+				sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Начинаю работать :P', main_color)
 				fishing_spamAlt_thread:run()
 			end
 			if not fishing_bot.v then
-				sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РҐРІР°С‚РёС‚ РЅР° СЃРµРіРѕРґРЅСЏ СЂС‹Р±С‹', main_color)
+				sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Хватит на сегодня рыбы', main_color)
 			end
 		end
-		if imgui.Checkbox(u8'РђРєС‚РёРІР°С†РёСЏ Р‘РѕС‚ СЂС‹Р±Р°Р»РєР° РЅР° B', fishing_bot_key) then end
-		if imgui.Checkbox(u8'Р’С‹РєР»СЋС‡РёС‚СЊ РўСѓРЅС†Р°', fishing_bot_tunecOff) then end
+		if imgui.Checkbox(u8'Активация Бот рыбалка на B', fishing_bot_key) then end
+		if imgui.Checkbox(u8'Выключить Тунца', fishing_bot_tunecOff) then end
 
 		imgui.End()
 	end
-	-- РћРєРЅРѕ РґР»СЏ РѕС…РѕС‚С‹
+	-- Окно для охоты
 	if ohota_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(500, 350), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Ohota', ohota_window_state, imgui.WindowFlags.NoResize)
-		--Р’С… РЅР° РѕР»РµРЅРµР№ Рё РјРµРґРІРµРґРµР№
-		if imgui.Checkbox(u8'Р’С… РЅР° РѕР»РµРЅРµР№ Рё РјРµРґРІРµРґРµР№', legit_whohota) then end
+		--Вх на оленей и медведей
+		if imgui.Checkbox(u8'Вх на оленей и медведей', legit_whohota) then end
 		imgui.Text("")
-		if imgui.Checkbox(u8'Р’С… РЅР° СѓС‚РѕРє', legit_whDuck) then end
+		if imgui.Checkbox(u8'Вх на уток', legit_whDuck) then end
 		imgui.SameLine()
-		if imgui.Checkbox(u8'РўСЂРµР№СЃРµСЂ РЅР° СѓС‚РѕРє', legit_whDuck_traser) then end
-		if imgui.Checkbox(u8'РђРІС‚РѕРїРѕРґР±РѕСЂ СѓС‚РѕРє', legit_AutoTakeDuck) then end
-		if imgui.Checkbox(u8'РђРёРј РЅР° СѓС‚РѕРє', legit_aimDuck) then end
+		if imgui.Checkbox(u8'Трейсер на уток', legit_whDuck_traser) then end
+		if imgui.Checkbox(u8'Автоподбор уток', legit_AutoTakeDuck) then end
+		if imgui.Checkbox(u8'Аим на уток', legit_aimDuck) then end
 		imgui.SameLine()
-		if imgui.Checkbox(u8'РЎР°Р№Р»РµРЅС‚ Р°РёРј РЅР° СѓС‚РѕРє', legit_aimDuck_silent) then end
+		if imgui.Checkbox(u8'Сайлент аим на уток', legit_aimDuck_silent) then end
 
 		imgui.End()
 	end
-	--РћРєРЅРѕ РђРІС‚Рѕ-Р»РѕРіРёРЅ
+	--Окно Авто-логин
 	if autologin_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(200, 150), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - AutoLogin', autologin_window_state, imgui.WindowFlags.NoResize)
-		--РђРІС‚Рѕ-Р›РѕРіРёРЅ
-		if imgui.Checkbox(u8'РђРІС‚Рѕ-Р›РѕРіРёРЅ', AutoLoginStatus) then 
+		--Авто-Логин
+		if imgui.Checkbox(u8'Авто-Логин', AutoLoginStatus) then 
 			config.AutoLogin.AutoLoginStatus = AutoLoginStatus.v
 			inicfg.save(config)
 		end
@@ -858,75 +858,75 @@ function imgui.OnDrawFrame()
 		imgui.End()
 	end
 	
-	-- РћРєРЅРѕ РґР»СЏ РґР°Р№РІРёРЅРіР°
+	-- Окно для дайвинга
 	if diving_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(300, 150), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Diving', diving_window_state, imgui.WindowFlags.NoResize)
 
-		if imgui.Checkbox(u8'Р’С… РЅР° СЃСѓРЅРґСѓРєРё', legit_whDiving) then end
-		if imgui.Checkbox(u8'РўСЂРµР№СЃРµСЂ РЅР° СЃСѓРЅРґСѓРєРё', legit_whDiving_traser) then end
+		if imgui.Checkbox(u8'Вх на сундуки', legit_whDiving) then end
+		if imgui.Checkbox(u8'Трейсер на сундуки', legit_whDiving_traser) then end
 
 		imgui.End()
 	end
 	
-	-- РћРєРЅРѕ РґР»СЏ РїРёР»РѕС‚Р°
+	-- Окно для пилота
 	if pilot_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(300, 150), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Pilot', pilot_window_state, imgui.WindowFlags.NoResize)
 
-		if imgui.Checkbox(u8'РџРёР»РѕС‚ РђРІС‚Рѕ-СЃРєРёРї С‚Р°Р±Р»РёС‡РєРё', legit_PilotAutoSkipTable) then end
+		if imgui.Checkbox(u8'Пилот Авто-скип таблички', legit_PilotAutoSkipTable) then end
 
 		imgui.End()
 	end
 	
-	-- РћРєРЅРѕ РґР»СЏ РѕР±С…РѕРґР°
+	-- Окно для обхода
 	if obhod_radmir_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(300, 150), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Obhod NEW', obhod_radmir_state, imgui.WindowFlags.NoResize)
 
-		if imgui.Checkbox(u8'РћР±С…РѕРґ Р°РЅС‚РёС‡РёС‚Р° РґР»СЏ СЂРµР№РґР¶ С„СѓРЅРєС†РёР№', legit_Obhod_AC) then end
+		if imgui.Checkbox(u8'Обход античита для рейдж функций', legit_Obhod_AC) then end
 
 		imgui.End()
 	end
 	
 	if halloween_window_state.v then
 		menus_style()
-		-- РќР°СЃС‚СЂРѕР№РєРё РѕРєРЅР°
+		-- Настройки окна
 		imgui.SetNextWindowSize(imgui.ImVec2(450, 250), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(sw / 2, sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
-		-- Р’С‹РІРѕРґ РѕРєРЅР°
+		-- Вывод окна
 		imgui.Begin('EdgekichMenyo for RadmirRP - Mashinist', halloween_window_state, imgui.WindowFlags.NoResize)
 
-		if imgui.Checkbox(u8'Р’РєР»СЋС‡РёС‚СЊ Р±РѕС‚Р° РјРѕР¶РЅРѕ РєРѕРјР°РЅРґРѕР№ /mashbot (РіР°Р»РѕС‡РєСѓ РЅРµ СЃС‚Р°РІРёС‚СЊ)', legit_halloween_sendListovka) then end
+		if imgui.Checkbox(u8'Включить бота можно командой /mashbot (галочку не ставить)', legit_halloween_sendListovka) then end
 	 
 		imgui.End()
 	end
 	
 end
--- Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РјРµРЅСЋС€РєРё(РІС‹СЂСѓР±Р°РµРј РІСЃРµ РјРµРЅСЋС€РєРё С‡С‚РѕР±С‹ РІРєР»СЋС‡РёС‚СЊ РЅСѓР¶РЅСѓСЋ)
+-- Функция для переключения менюшки(вырубаем все менюшки чтобы включить нужную)
 function main_menu_exitAll()
 	main_menu_legit = false
 	main_menu_rage = false
 	main_menu_settings = false
 end
 
--- РЎС‚РёР»СЊ РѕРєРЅР°
+-- Стиль окна
 function apply_custom_style()
     imgui.SwitchContext()
     local style = imgui.GetStyle()
@@ -1090,7 +1090,7 @@ function RGBA(r, g, b, a)
 	return r, g, b, a
 end
 
--- Р Р°Р·РјРµСЂ С€СЂРёС„С‚Р°
+-- Размер шрифта
 function imgui.BeforeDrawFrame()
 	if headsize == nil then
 		headsize = imgui.GetIO().Fonts:AddFontFromFileTTF(getFolderPath(0x14) .. '\\trebucbd.ttf', 40.0, nil, imgui.GetIO().Fonts:GetGlyphRangesCyrillic())
@@ -1106,7 +1106,7 @@ function imgui.BeforeDrawFrame()
 	end
 end
 
---РњРµРЅСЋС€РєР°
+--Менюшка
 function createChild(windowName, x, y, posX, posY, color)
 	local style = imgui.GetStyle()
 	local colors = style.Colors
@@ -1120,7 +1120,7 @@ function createChild(windowName, x, y, posX, posY, color)
 	imgui.BeginChild(windowName, imgui.ImVec2(x, y), true)
 end
 
---РђРІС‚Рѕ СЃР±РѕСЂ СѓС‚РєРё
+--Авто сбор утки
 function legit_autoTakeDuck_thread_function()
 	sampSendChat("/take_duck")
 	wait(1000)
@@ -1145,7 +1145,7 @@ function onReceivePacket(id, bs)
 				if (_style == 727) and (_type == 512) and (l == 0) and (style3 == 1) and (length == 64) then
 					local fish_percent = tonumber(string.sub(bitstreamtext, #bitstreamtext-5, #bitstreamtext-3))
 					if fish_percent >= 60 then
-						lua_thread.create( -- СЃРѕР·РґР°РµРј РїРѕС‚РѕРє РЅР°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё
+						lua_thread.create( -- создаем поток нажатия клавиши
 							function()
 								setVirtualKeyDown(VK_SPACE, true)
 								wait(100)
@@ -1153,9 +1153,9 @@ function onReceivePacket(id, bs)
 							end)
 					end
 				end
-				if string.find(bitstreamtext, 'Р’С‹ С…РѕС‚РёС‚Рµ Р·Р°Р±СЂР°С‚СЊ РёР»Рё РѕС‚РїСѓСЃС‚РёС‚СЊ СЂС‹Р±Сѓ?', 1, true) then
-					--727/512/0/1/195/window.addDialogInQueue('[0,6,"РЈР»РѕРІ","","Р—Р°Р±СЂР°С‚СЊ","РћС‚РїСѓСЃС‚РёС‚СЊ",0,0]', ["Р’С‹ РїРѕР№РјР°Р»Рё РљСЂР°СЃРЅРѕРїРµСЂРєР° РІРµСЃРѕРј 0.2 РєРі.<n><n>Р’С‹ С…РѕС‚РёС‚Рµ Р·Р°Р±СЂР°С‚СЊ РёР»Рё РѕС‚РїСѓСЃС‚РёС‚СЊ СЂС‹Р±Сѓ?", "fishing/fish/-1.png"], 0)
-					if fishing_bot_tunecOff.v and string.find(bitstreamtext, 'РўСѓРЅРµС†', 1, true) then
+				if string.find(bitstreamtext, 'Вы хотите забрать или отпустить рыбу?', 1, true) then
+					--727/512/0/1/195/window.addDialogInQueue('[0,6,"Улов","","Забрать","Отпустить",0,0]', ["Вы поймали Красноперка весом 0.2 кг.<n><n>Вы хотите забрать или отпустить рыбу?", "fishing/fish/-1.png"], 0)
+					if fishing_bot_tunecOff.v and string.find(bitstreamtext, 'Тунец', 1, true) then
 						lua_thread.create(
 							function()
 								wait(500)
@@ -1212,8 +1212,8 @@ function onReceivePacket(id, bs)
 				raknetBitStreamWriteInt8(bs, 0)
 				raknetBitStreamWriteInt8(bs, 0)
 				raknetBitStreamWriteString(bs, Password)
-				raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-				raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+				raknetSendBitStream(bs) -- отправляем пакет
+				raknetDeleteBitStream(bs) -- удаляем пакет
 			end
 			
 			if legit_halloween_sendListovka.v then
@@ -1230,14 +1230,14 @@ function onReceivePacket(id, bs)
 					for i=1, #MyPacket do
 						raknetBitStreamWriteInt8(bs, MyPacket[i])
 					end
-					raknetSendBitStream(bs) -- РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚
-					raknetDeleteBitStream(bs) -- СѓРґР°Р»СЏРµРј РїР°РєРµС‚
+					raknetSendBitStream(bs) -- отправляем пакет
+					raknetDeleteBitStream(bs) -- удаляем пакет
 					return false
 				end
 			end
-			-- interface('ProgressBar').getBarInfo("[["РќР°Р¶РёРјР°Р№С‚Рµ Y <br>СЃ РЅРµР±РѕР»СЊС€РёРј РёРЅС‚РµСЂРІР°Р»РѕРј",0,1000]]")
+			-- interface('ProgressBar').getBarInfo("[["Нажимайте Y <br>с небольшим интервалом",0,1000]]")
 			if settings_AutoY.v then
-				if string.find(bitstreamtext, "interface('ProgressBar').getBarInfo(\"[[\"РќР°Р¶РёРјР°Р№С‚Рµ Y <br>СЃ РЅРµР±РѕР»СЊС€РёРј РёРЅС‚РµСЂРІР°Р»РѕРј\",0,1000]]\")", 1, true) or ((bitstreamtext == "ProgressBar") and (getCharModel(PLAYER_PED) == 15576)) then
+				if string.find(bitstreamtext, "interface('ProgressBar').getBarInfo(\"[[\"Нажимайте Y <br>с небольшим интервалом\",0,1000]]\")", 1, true) or ((bitstreamtext == "ProgressBar") and (getCharModel(PLAYER_PED) == 15576)) then
 					settings_AutoY_clicker = true
 					
 					lua_thread.create(function()
@@ -1287,56 +1287,56 @@ function sampev.onSendPlayerSync(data)
 	end
 end
 
--- РџРѕР»СѓС‡РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№ РѕС‚ СЃРµСЂРІРµСЂР°
+-- Получение сообщений от сервера
 function sampev.onServerMessage(color, text)
-	-- РџРѕРјРѕС‰РЅРёРє РґР»СЏ СЂС‹Р±Р°Р»РєРё
+	-- Помощник для рыбалки
 	if fishing_helper.v then
 		if (fishing_combo.v == 0) then
-			if string.find(text, 'Р’С‹ СЃР»РѕРІРёР»Рё СЂС‹Р±Сѓ', 1, true) then
+			if string.find(text, 'Вы словили рыбу', 1, true) then
 				fish_value = fish_value + 0.5
 			end
-			if string.find(text, 'Р С‹Р±Р° СЃРѕСЂРІР°Р»Р°СЃСЊ СЃ РєСЂСЋС‡РєР°.', 1, true) then
+			if string.find(text, 'Рыба сорвалась с крючка.', 1, true) then
 				fish_value = fish_value + 1
 			end
-			if string.find(text, 'РЈРіРѕСЂСЊ СѓРґР°СЂРёР» РІР°СЃ С‚РѕРєРѕРј Рё СѓРїР»С‹Р».', 1, true) then
+			if string.find(text, 'Угорь ударил вас током и уплыл.', 1, true) then
 				fish_value = fish_value + 0.5
 			end
 		elseif (fishing_combo.v == 1) then
-			if string.find(text, 'Р’С‹ СЃР»РѕРІРёР»Рё СЂС‹Р±Сѓ', 1, true) then
+			if string.find(text, 'Вы словили рыбу', 1, true) then
 				fish_value = fish_value + 2
 			end
-			if string.find(text, 'Р С‹Р±Р° СЃРѕСЂРІР°Р»Р°СЃСЊ СЃ РєСЂСЋС‡РєР°.', 1, true) then
+			if string.find(text, 'Рыба сорвалась с крючка.', 1, true) then
 				fish_value = fish_value + 3
 			end
 		elseif (fishing_combo.v == 2) then
-			if string.find(text, 'Р’С‹ СЃР»РѕРІРёР»Рё СЂС‹Р±Сѓ', 1, true) then
+			if string.find(text, 'Вы словили рыбу', 1, true) then
 				fish_value = fish_value + 1
 			end
-			if string.find(text, 'Р С‹Р±Р° СЃРѕСЂРІР°Р»Р°СЃСЊ СЃ РєСЂСЋС‡РєР°.', 1, true) then
+			if string.find(text, 'Рыба сорвалась с крючка.', 1, true) then
 				fish_value = fish_value + 2
 			end
 		end
 	end
 
-	-- Р‘РѕС‚ РґР»СЏ СЂС‹Р±Р°Р»РєРё
+	-- Бот для рыбалки
 	if fishing_bot.v then
-		if string.find(text, 'РџРѕРґСЃРµС‡РєР° РЅРµ СѓРґР°Р»Р°СЃСЊ, СЂС‹Р±Р° СЃСЉРµР»Р° РЅР°Р¶РёРІРєСѓ Рё СѓРїР»С‹Р»Р°.', 1, true) then
+		if string.find(text, 'Подсечка не удалась, рыба съела наживку и уплыла.', 1, true) then
 			lua_thread.create(
 				function()
 						wait(4000)
 						fishing_spamAlt_thread:run()
 				end)
 		end
-		if string.find(text, 'РЈ РІР°СЃ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РІРµСЃР° РІ РёРЅРІРµРЅС‚Р°СЂРµ С‡С‚РѕР±С‹ Р·Р°Р±СЂР°С‚СЊ СЂС‹Р±Сѓ.', 1, true) or string.find(text, 'РЈ РІР°СЃ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РјРµСЃС‚Р° РІ РёРЅРІРµРЅС‚Р°СЂРµ С‡С‚РѕР±С‹ Р·Р°Р±СЂР°С‚СЊ СЂС‹Р±Сѓ.', 1, true) then
+		if string.find(text, 'У вас недостаточно свободного веса в инвентаре чтобы забрать рыбу.', 1, true) or string.find(text, 'У вас недостаточно места в инвентаре чтобы забрать рыбу.', 1, true) then
 			fishing_bot.v = false
-			sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РҐРІР°С‚РёС‚ РЅР° СЃРµРіРѕРґРЅСЏ СЂС‹Р±С‹', main_color)
+			sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Хватит на сегодня рыбы', main_color)
 			if not fishing_spamAlt_thread.dead then
 				fishing_spamAlt_thread_stop = true
 			end
 		end
-		if string.find(text, 'РЈ РІР°СЃ Р·Р°РєРѕРЅС‡РёР»Р°СЃСЊ РЅР°Р¶РёРІРєР°', 1, true) then
+		if string.find(text, 'У вас закончилась наживка', 1, true) then
 			fishing_bot.v = false
-			sampAddChatMessage(yellow_color_text .. 'Р‘РѕС‚ СЂС‹Р±Р°Р»РєР°: {0dffdb}РҐРІР°С‚РёС‚ РЅР° СЃРµРіРѕРґРЅСЏ СЂС‹Р±С‹', main_color)
+			sampAddChatMessage(yellow_color_text .. 'Бот рыбалка: {0dffdb}Хватит на сегодня рыбы', main_color)
 			if not fishing_spamAlt_thread.dead then
 				fishing_spamAlt_thread_stop = true
 			end
@@ -1344,9 +1344,9 @@ function sampev.onServerMessage(color, text)
 	end
 end
 
---РЎРїР°Рј ALT РґР»СЏ СЂС‹Р±Р°Р»РєРё
+--Спам ALT для рыбалки
 function fishing_spamAlt_thread_function()
-	--sampAddChatMessage("РќСѓ СЏ С‚СѓС‚", -1)
+	--sampAddChatMessage("Ну я тут", -1)
 	while (not fishing_spamAlt_thread_stop) do
 		if not fishing_bot.v then break end
 		setVirtualKeyDown(VK_MENU, true)
@@ -1354,11 +1354,11 @@ function fishing_spamAlt_thread_function()
 		setVirtualKeyDown(VK_MENU, false)
 		wait(500)
 	end
-	--sampAddChatMessage("РџСЂРѕСЃРїР°РјРёР»Рё", -1)
+	--sampAddChatMessage("Проспамили", -1)
 	fishing_spamAlt_thread_stop = false
 end
 
---РћС‚РїСЂР°РІРєР° РїСѓР»Рё РЅР° СЃРµСЂРІРµСЂ
+--Отправка пули на сервер
 function sampev.onSendBulletSync(data)
 	if legit_aimDuck_silent.v then
 		for _, handle in pairs(getAllObjects()) do
@@ -1403,21 +1403,21 @@ function sampev.onSendBulletSync(data)
 
 end
 
---Р­РІРµРЅС‚С‹
+--Эвенты
 function sampev.onRemovePlayerFromVehicle()
 	if rage_ygonAvto.v then
 		return false
 	end
 end
 
---РђРёРј РЅР° СѓС‚РѕРє
+--Аим на уток
 function checkObject_duck(handle)
 	if not doesObjectExist(handle) then
 		return false
 	end
 	local _, x, y, z = getObjectCoordinates(handle)
 	local model = getObjectModel(handle)
-	--РџСЂРѕРІРµСЂСЏРµРј С‡С‚РѕР±С‹ Р±С‹Р» РЅР° СЌРєСЂР°РЅРµ
+	--Проверяем чтобы был на экране
 	if not isObjectOnScreen(handle) then
 		return false
 	end
@@ -1425,7 +1425,7 @@ function checkObject_duck(handle)
 	if model ~= 10809 then
 		return false
 	end
-	--Р§РµРєР°РµРј С‡С‚РѕР±С‹ Р±С‹Р»Рѕ РЅРµ Р·Р° СЃС‚РµРЅР°РјРё
+	--Чекаем чтобы было не за стенами
 	local pedX, pedY, pedZ = getActiveCameraCoordinates()
 	local result, colPoint = processLineOfSight(pedX, pedY, pedZ, x, y, z, true, false, false, false, false, false, false, false)
 	if result then
@@ -1482,7 +1482,7 @@ function ferma1TpPerenos_thread_function()
 	while ferma1TpPerenos do
 		local x, y, z = getCharCoordinates(PLAYER_PED)
 		local data = samp_create_sync_data("player")
-		data.position = {-1074.3, -1026.2, 47} -- С‚Рї РЅР° РјРµР»СЊРЅРёС†Сѓ
+		data.position = {-1074.3, -1026.2, 47} -- тп на мельницу
 		data.surfingVehicleId = LastObj
 		data.send()
 		data.position = {x, y, z}
@@ -1493,7 +1493,7 @@ function ferma1TpPerenos_thread_function()
 		
 		x, y, z = getCharCoordinates(PLAYER_PED)
 		data = samp_create_sync_data("player")
-		data.position = {-1121.1, -828, 51} -- С‚Рї РЅР° СЃРґР°С‡Сѓ
+		data.position = {-1121.1, -828, 51} -- тп на сдачу
 		data.surfingVehicleId = LastObj
 		data.send()
 		data.position = {x, y, z}
@@ -1502,14 +1502,14 @@ function ferma1TpPerenos_thread_function()
 
 		wait(math.random(5000, 6000))
 	end
-	sampAddChatMessage("Р”РѕРґРµР»Р°Р»Рё", -1)
+	sampAddChatMessage("Доделали", -1)
 end
 
 function ferma2TpPerenos_thread_function()
 	while ferma2TpPerenos do
 		local x, y, z = getCharCoordinates(PLAYER_PED)
 		local data = samp_create_sync_data("player")
-		data.position = {1556.2, 651.4, 15} -- С‚Рї РЅР° РјРµР»СЊРЅРёС†Сѓ
+		data.position = {1556.2, 651.4, 15} -- тп на мельницу
 		data.surfingVehicleId = LastObj
 		data.send()
 		data.position = {x, y, z}
@@ -1520,7 +1520,7 @@ function ferma2TpPerenos_thread_function()
 		
 		x, y, z = getCharCoordinates(PLAYER_PED)
 		data = samp_create_sync_data("player")
-		data.position = {1657.7, 692.3, 15.5} -- С‚Рї РЅР° СЃРґР°С‡Сѓ
+		data.position = {1657.7, 692.3, 15.5} -- тп на сдачу
 		data.surfingVehicleId = LastObj
 		data.send()
 		data.position = {x, y, z}
@@ -1529,7 +1529,7 @@ function ferma2TpPerenos_thread_function()
 		
 		wait(math.random(4000, 5000))
 	end
-	sampAddChatMessage("Р”РѕРґРµР»Р°Р»Рё", -1)
+	sampAddChatMessage("Доделали", -1)
 end
 
 function fermaTpVspah_thread_function()
@@ -1537,14 +1537,14 @@ function fermaTpVspah_thread_function()
 	
 		fun_TpOnCoord_syncPacketCount=0
 		fun_TpOnCoord_TPshim = true
-		moveTudaObratno(fermaCheckpointPosX, fermaCheckpointPosY, fermaCheckpointPosZ) -- С‚Рї РЅР° РјРµС‚РєСѓ
+		moveTudaObratno(fermaCheckpointPosX, fermaCheckpointPosY, fermaCheckpointPosZ) -- тп на метку
 		while fun_TpOnCoord_TPshim do
 			wait(100)
 		end
 		
 		wait(5000)
 	end
-	sampAddChatMessage("Р”РѕРґРµР»Р°Р»Рё", -1)
+	sampAddChatMessage("Доделали", -1)
 end
 
 function fermaYdobrenie_thread_function()
@@ -1560,7 +1560,7 @@ function fermaYdobrenie_thread_function()
 		
 		wait(math.random(5000, 20000))
 	end
-	sampAddChatMessage("Р”РѕРґРµР»Р°Р»Рё", -1)
+	sampAddChatMessage("Доделали", -1)
 end
 
 function fermaSbor_thread_function()
@@ -1587,7 +1587,7 @@ function fermaSbor_thread_function()
 		
 		wait(math.random(10000, 20000))
 	end
-	sampAddChatMessage("Р”РѕРґРµР»Р°Р»Рё", -1)
+	sampAddChatMessage("Доделали", -1)
 end
 
 function sampev.onSetCheckpoint(position, radius)
@@ -1621,20 +1621,20 @@ function getSurfingObject()
 
     if closestObject and closestDistance <= LastObjDistance then
         LastObj = sampGetObjectSampIdByHandle(closestObject) + 2000
-		--sampAddChatMessage("РѕР±СЉРµРєС‚", -1)
+		--sampAddChatMessage("объект", -1)
     end
 
     return LastObj or -1
 end
---РўРµР»РµРїРѕСЂС‚ Р°С‚Рї/РјС‚Рї
+--Телепорт атп/мтп
 function moveToBlip(blipX, blipY, blipZ)
 	local playerX, playerY, playerZ = getCharCoordinates(PLAYER_PED)
 	local isCar = isCharInAnyCar(PLAYER_PED)
 	local PosDelay
 	if isCar then
-		PosDelay = 5 --РґРµР»РµР№ РµСЃР»Рё РІ РјР°С€РёРЅРµ
+		PosDelay = 5 --делей если в машине
 	else
-		PosDelay = 500 --РґРµР»РµР№ РµСЃР»Рё РїРµС€РєРѕРј
+		PosDelay = 500 --делей если пешком
 	end
 	lua_thread.create(function()
 		while fun_TpOnCoord_TPshim do
@@ -1650,13 +1650,13 @@ function moveToBlip(blipX, blipY, blipZ)
 					setCharCoordinates(PLAYER_PED, blipX, blipY, blipZ)
 					wait(100)
 					fun_TpOnCoord_TPshim=false
-					sampAddChatMessage("{c300ff}ATP/MTP by L.team: {ffffff}РўРµРїРЅСѓР»Рё РІР°СЃ СЃРµСЂ Р·Р° " .. string.format("%0.2f", whatTime) .. " СЃРµРєСѓРЅРґ", -1);
+					sampAddChatMessage("{c300ff}ATP/MTP by L.team: {ffffff}Тепнули вас сер за " .. string.format("%0.2f", whatTime) .. " секунд", -1);
 					
 				end
 
 				if fun_TpOnCoord_syncPacketCount >= 450 then --OnPacket = 480
 					fun_TpOnCoord_syncPacketCount=0
-					--sampAddChatMessage("Р–РґС‘Рј " .. fun_TpOnCoord_tpWait .. "РјСЃ", -1)
+					--sampAddChatMessage("Ждём " .. fun_TpOnCoord_tpWait .. "мс", -1)
 					if isCar then
 						wait(fun_TpOnCoord_tpWait)
 					else
@@ -1678,9 +1678,9 @@ function moveTudaObratno(blipX, blipY, blipZ)
 	local tuda = true
 	local PosDelay
 	if isCar then
-		PosDelay = 5 --РґРµР»РµР№ РµСЃР»Рё РІ РјР°С€РёРЅРµ
+		PosDelay = 5 --делей если в машине
 	else
-		PosDelay = 1 --РґРµР»РµР№ РµСЃР»Рё РїРµС€РєРѕРј
+		PosDelay = 1 --делей если пешком
 	end
 	lua_thread.create(function()
 		while fun_TpOnCoord_TPshim do
@@ -1711,7 +1711,7 @@ function moveTudaObratno(blipX, blipY, blipZ)
 						local data = samp_create_sync_data("player")
 						data.health = getCharHealth(PLAYER_PED)
 						data.specialAction = 0
-						data.animationId = 1189 -- РїСЂРѕСЃС‚Рѕ СЃС‚РѕРёРј РЅР° РјРµСЃС‚Рµ
+						data.animationId = 1189 -- просто стоим на месте
 						data.send()
 						setCharCoordinates(PLAYER_PED, myPosX, myPosY, myPosZ-1)
 					end
@@ -1721,7 +1721,7 @@ function moveTudaObratno(blipX, blipY, blipZ)
 				
 				if fun_TpOnCoord_syncPacketCount >= 450 then --OnPacket = 480
 					fun_TpOnCoord_syncPacketCount=0
-					--sampAddChatMessage("Р–РґС‘Рј " .. fun_TpOnCoord_tpWait .. "РјСЃ", -1)
+					--sampAddChatMessage("Ждём " .. fun_TpOnCoord_tpWait .. "мс", -1)
 					if isCar then
 						wait(fun_TpOnCoord_tpWait)
 					else
